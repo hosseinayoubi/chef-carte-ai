@@ -1,0 +1,297 @@
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/source-sans-3/400.css";
+@import "@fontsource/source-sans-3/600.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Retro Bistro Color Palette */
+    --background: 35 40% 97%;
+    --foreground: 30 10% 15%;
+
+    --card: 35 35% 95%;
+    --card-foreground: 30 10% 15%;
+
+    --popover: 35 40% 97%;
+    --popover-foreground: 30 10% 15%;
+
+    /* Deep Burgundy */
+    --primary: 352 45% 30%;
+    --primary-foreground: 35 40% 97%;
+
+    /* Muted Gold */
+    --secondary: 42 45% 65%;
+    --secondary-foreground: 30 10% 15%;
+
+    /* Soft sage */
+    --muted: 35 20% 88%;
+    --muted-foreground: 30 10% 45%;
+
+    /* Forest Green */
+    --accent: 150 35% 25%;
+    --accent-foreground: 35 40% 97%;
+
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 35 40% 97%;
+
+    --border: 35 25% 82%;
+    --input: 35 25% 85%;
+    --ring: 352 45% 30%;
+
+    --radius: 0.75rem;
+
+    /* Custom design tokens */
+    --cream: 35 40% 97%;
+    --ivory: 40 45% 94%;
+    --burgundy: 352 45% 30%;
+    --burgundy-light: 352 40% 40%;
+    --forest: 150 35% 25%;
+    --forest-light: 150 30% 35%;
+    --gold: 42 55% 55%;
+    --gold-muted: 42 45% 65%;
+    --charcoal: 30 10% 15%;
+    --warm-gray: 30 10% 45%;
+
+    /* Paper texture gradient */
+    --paper-texture: linear-gradient(
+      135deg,
+      hsl(35 40% 97%) 0%,
+      hsl(40 45% 94%) 50%,
+      hsl(35 35% 95%) 100%
+    );
+
+    /* Elegant shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(30 10% 15% / 0.08);
+    --shadow-medium: 0 4px 16px -4px hsl(30 10% 15% / 0.12);
+    --shadow-elevated: 0 8px 32px -8px hsl(30 10% 15% / 0.16);
+
+    /* Typography */
+    --font-display: "Playfair Display", Georgia, serif;
+    --font-body: "Source Sans 3", system-ui, sans-serif;
+
+    --sidebar-background: 35 35% 95%;
+    --sidebar-foreground: 30 10% 15%;
+    --sidebar-primary: 352 45% 30%;
+    --sidebar-primary-foreground: 35 40% 97%;
+    --sidebar-accent: 150 35% 25%;
+    --sidebar-accent-foreground: 35 40% 97%;
+    --sidebar-border: 35 25% 82%;
+    --sidebar-ring: 352 45% 30%;
+  }
+
+  .dark {
+    --background: 30 15% 10%;
+    --foreground: 35 30% 92%;
+
+    --card: 30 12% 14%;
+    --card-foreground: 35 30% 92%;
+
+    --popover: 30 15% 10%;
+    --popover-foreground: 35 30% 92%;
+
+    --primary: 352 40% 55%;
+    --primary-foreground: 30 15% 10%;
+
+    --secondary: 42 40% 45%;
+    --secondary-foreground: 30 15% 10%;
+
+    --muted: 30 10% 20%;
+    --muted-foreground: 35 15% 60%;
+
+    --accent: 150 30% 40%;
+    --accent-foreground: 30 15% 10%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 35 30% 92%;
+
+    --border: 30 10% 22%;
+    --input: 30 10% 22%;
+    --ring: 352 40% 55%;
+
+    --sidebar-background: 30 12% 14%;
+    --sidebar-foreground: 35 30% 92%;
+    --sidebar-primary: 352 40% 55%;
+    --sidebar-primary-foreground: 30 15% 10%;
+    --sidebar-accent: 150 30% 40%;
+    --sidebar-accent-foreground: 30 15% 10%;
+    --sidebar-border: 30 10% 22%;
+    --sidebar-ring: 352 40% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background-image: var(--paper-texture);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .menu-divider {
+    @apply relative py-4;
+  }
+
+  .menu-divider::before {
+    content: "✦";
+    @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary text-lg;
+  }
+
+  .menu-divider::after {
+    content: "";
+    @apply absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  .paper-card {
+    @apply bg-card rounded-xl shadow-medium border border-border/50;
+    background-image: linear-gradient(
+      to bottom right,
+      hsl(var(--card)) 0%,
+      hsl(var(--ivory)) 100%
+    );
+  }
+
+  .retro-button {
+    @apply relative overflow-hidden transition-all duration-300;
+  }
+
+  .retro-button::before {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-b from-white/10 to-transparent;
+  }
+
+  .ticket-loader {
+    animation: ticket-print 1.5s ease-in-out infinite;
+  }
+
+  @keyframes ticket-print {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  .fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ingredient-chip {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 bg-ivory text-charcoal 
+           rounded-full border border-border text-sm font-medium
+           transition-all duration-200 hover:border-primary/50 hover:bg-primary/5;
+  }
+
+  .section-header {
+    @apply relative text-center mb-8;
+  }
+
+  .section-header::before,
+  .section-header::after {
+    content: "";
+    @apply absolute top-1/2 h-px w-16 bg-gradient-to-r from-transparent to-border;
+  }
+
+  .section-header::before {
+    @apply right-[calc(50%+6rem)];
+  }
+
+  .section-header::after {
+    @apply left-[calc(50%+6rem)] bg-gradient-to-l;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .text-burgundy {
+    color: hsl(var(--burgundy));
+  }
+
+  .text-forest {
+    color: hsl(var(--forest));
+  }
+
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+
+  .text-charcoal {
+    color: hsl(var(--charcoal));
+  }
+
+  .text-warm-gray {
+    color: hsl(var(--warm-gray));
+  }
+
+  .bg-cream {
+    background-color: hsl(var(--cream));
+  }
+
+  .bg-ivory {
+    background-color: hsl(var(--ivory));
+  }
+
+  .bg-burgundy {
+    background-color: hsl(var(--burgundy));
+  }
+
+  .bg-forest {
+    background-color: hsl(var(--forest));
+  }
+
+  .bg-gold {
+    background-color: hsl(var(--gold));
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+}
